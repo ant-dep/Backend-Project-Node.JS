@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { scheduleArray } from '../scheduled/scheduleArray';\nimport { fromArrayLike } from './from';\nexport function internalFromArray(input, scheduler) {\n  return scheduler ? scheduleArray(input, scheduler) : fromArrayLike(input);\n} //# sourceMappingURL=fromArray.js.map","map":null,"metadata":{},"sourceType":"module"}
