@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         const userId = decodedToken.userId;
         // if the userId is not the same as the one saved -> error
         if (req.body.userId && req.body.userId !== userId) {
-            throw 'Invalid user ID';
+            throw 'ID utilisateur non valide!';
         } else {
             // if it's the same then keep going -> just a middleware
             next();
@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
     } catch {
         // for any issues withing the process -> return error
         res.status(401).json({
-            error: new Error('Invalid request!')
+            error: new Error('Requete non authentifiée!')
         });
     }
 };

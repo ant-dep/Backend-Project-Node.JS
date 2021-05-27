@@ -1,6 +1,15 @@
-const User = require('../models/User')
+const User = require('../models/users')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const maskData = require("maskdata");
+
+// hide emails details for confidentiality
+const emailMaskOptions = {
+    maskWith: "*",
+    unmaskedStartCharactersBeforeAt: 1,
+    unmaskedEndCharactersAfterAt: 1,
+    maskAtTheRate: false,
+};
 
 exports.signup = (req, res, next) => {
     // encrypt the password given by the user with 12 loops of encrypting (default recommended)
@@ -8,7 +17,7 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             // Use the model to create a new User
             const user = new User({
-                email: req.body.email,
+                email: maskData.maskEmail2(req.body.email, emailMaskOptions),
                 password: hash
             });
             // save the new User
@@ -21,7 +30,9 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     // Looking for an existing User
-    User.findOne({ email: req.body.email })
+    User.findOne({
+            email: maskData.maskEmail2(req.body.email, emailMaskOptions)
+        })
         .then(user => {
             // error message if it's not existing
             if (!user) {
