@@ -39,7 +39,7 @@ const { Session } = require("inspector"); // inpector npm
 const nocache = require("nocache"); // disable cache
 
 // connection to MongoDB through mongoose and personal id and passwords
-mongoose.connect('mongodb+srv://lHimiko:RPpLuZqo22ik1jWc@cluster0.aasvl.mongodb.net/p6-exercise?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://SoPekocko:zHaJnuixqtzYaKYZ@cluster0.ifwqf.mongodb.net/SoPekocko?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
