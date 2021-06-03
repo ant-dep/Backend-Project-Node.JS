@@ -3,6 +3,7 @@ const fs = require('fs'); // package node to delete things
 const { json } = require("body-parser");
 
 // All exports.XXX are links to app.js
+
 exports.createSauce = (req, res, next) => {
     // transform the request into a JS object reusable
     const sauceObject = JSON.parse(req.body.sauce);
@@ -71,19 +72,26 @@ exports.likeSauce = (req, res, next) => {
     console.log({ likes: req.body.like });
     console.log({ usersLiked: req.body.userId });
 
+    // A user can only like or dislike at a time
+    // So here is how it checks if it's liked or not and adapt numbers
     const sauceObject = req.body;
     console.log(sauceObject);
-
+    // Checking if the user likes the sauce
     if (sauceObject.like === 1) {
         Sauce.updateOne({ _id: req.params.id }, {
+                // increment the "likes" with one more
                 $inc: { likes: +1 },
+                // adapt the number of likes of this user
                 $push: { usersLiked: req.body.userId },
             })
             .then(() => res.status(200).json({ message: "un like en plus ! On aime ça !" }))
             .catch((error) => res.status(400).json({ error }));
+        // Checking if the user dislikes the sauce
     } else if (sauceObject.like === -1) {
         Sauce.updateOne({ _id: req.params.id }, {
+                // If the sauce is note liked, add 1 dislike
                 $inc: { dislikes: +1 },
+                // and adapt the number of likes of this user
                 $push: { usersDisliked: req.body.userId },
             })
             .then(() => res.status(200).json({ message: "un dislike en plus ! Ah bon ?" }))
