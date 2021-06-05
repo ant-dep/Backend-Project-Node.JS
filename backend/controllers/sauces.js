@@ -72,16 +72,16 @@ exports.likeSauce = (req, res, next) => {
     console.log({ likes: req.body.like });
     console.log({ usersLiked: req.body.userId });
 
-    // A user can only like or dislike at a time
-    // So here is how it checks if it's liked or not and adapt numbers
+    // Every users can like a Sauce but a user can like or dislike one at a time
+    // So here is how it checks if it's liked or not, adapt numbers and count every likes and dislikes
     const sauceObject = req.body;
     console.log(sauceObject);
     // Checking if the user likes the sauce
     if (sauceObject.like === 1) {
         Sauce.updateOne({ _id: req.params.id }, {
-                // increment the "likes" with one more
+                // add one more like
                 $inc: { likes: +1 },
-                // adapt the number of likes of this user
+                // add the user id to the Likes list of this sauce
                 $push: { usersLiked: req.body.userId },
             })
             .then(() => res.status(200).json({ message: "un like en plus ! On aime ça !" }))
@@ -89,32 +89,38 @@ exports.likeSauce = (req, res, next) => {
         // Checking if the user dislikes the sauce
     } else if (sauceObject.like === -1) {
         Sauce.updateOne({ _id: req.params.id }, {
-                // If the sauce is note liked, add 1 dislike
+                // If the sauce is not liked, add 1 dislike
                 $inc: { dislikes: +1 },
-                // and adapt the number of likes of this user
+                // add the user id to the Dislikes list of this sauce
                 $push: { usersDisliked: req.body.userId },
             })
             .then(() => res.status(200).json({ message: "un dislike en plus ! Ah bon ?" }))
             .catch((error) => res.status(400).json({ error }));
     } else {
+        // If the sauce is not either liked nor disliked
+        // look for this specific sauce
         Sauce.findOne({ _id: req.params.id })
             .then((sauce) => {
                 console.log(sauce);
+                // then check if the user's Id is in the Likes list
                 if (sauce.usersLiked.includes(req.body.userId)) {
                     Sauce.updateOne({ _id: req.params.id }, {
+                            // get back the userId
                             $pull: { usersLiked: req.body.userId },
+                            // decrease number of likes
                             $inc: { likes: -1 },
                         })
                         .then(() => res.status(200).json({ message: "enleve le like ! Mince alors.." }))
                         .catch((error) => res.status(400).json({ error }));
+                    // or if the user's Id is in the Dislikes list
                 } else if (sauce.usersDisliked.includes(req.body.userId)) {
                     Sauce.updateOne({ _id: req.params.id }, {
+                            // get back the userId
                             $pull: { usersDisliked: req.body.userId },
+                            // decrease number of dislikes
                             $inc: { dislikes: -1 },
                         })
-                        .then(() =>
-                            res.status(200).json({ message: "enleve le dislike ! Yepa !" })
-                        )
+                        .then(() => res.status(200).json({ message: "enleve le dislike ! Yepa !" }))
                         .catch((error) => res.status(400).json({ error }));
                 }
             })
