@@ -13,7 +13,14 @@ Ce projet a été réalisé dans le cadre du projet 6 d'openclassroom.
 
 Installation:
 
-Installez le backend de l'application lancer node server ou nodemon server après avoir installé NodeJs et les packages npm comme suit pour le backend :
+- Frontend : utiliser :
+
+NodeJS en version 12.14 ou 14.0 (utiliser nvm par exemple)
+Angular CLI en version 7.0.2. (A desintaller et réinstaller avec npm i @angular/cli@7.0.2)
+node-sass : attention à prendre la version correspondante à NodeJS. Pour Node 14.0 par exemple, installer node-sass en version 4.14+.
+(npm uninstall node-sass puis npm install node-sass@4.14.1)
+
+- Backend : lancer node server ou nodemon server après avoir installé NodeJs et les packages npm comme suit pour le backend :
 
 npm install -g @angular/cli
 npm install -g nodemon

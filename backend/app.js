@@ -14,6 +14,7 @@
 // npm install --save helmet
 // npm install --save cookie-session
 // npm install --save xss-clean
+// npm install express-mongo-sanitize
 // npm install -g node-inspector    -->     node-debug app.js
 // npm i nocache
 
@@ -28,6 +29,7 @@ const mongoose = require('mongoose'); // framework of MongoDB
 const cookieSession = require("cookie-session"); // import cookie-session handler
 const helmet = require("helmet"); // import helmet security manager
 const xssClean = require("xss-clean"); // import xxs attack counter
+const mongoSanitize = require("express-mongo-sanitize");
 
 require("dotenv").config(); // NPM module that loads environment variables
 
@@ -39,7 +41,7 @@ const { Session } = require("inspector"); // inpector npm
 const nocache = require("nocache"); // disable cache
 
 // connection to MongoDB through mongoose and personal id and passwords
-mongoose.connect('mongodb+srv://lHimiko:RPpLuZqo22ik1jWc@cluster0.aasvl.mongodb.net/p6-exercise?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://SoPekocko:zHaJnuixqtzYaKYZ@cluster0.ifwqf.mongodb.net/SoPekocko?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -81,6 +83,8 @@ app.disable("x-powered-by");
 
 // body Parser transform the request body into a manageable object
 app.use(bodyParser.json());
+// Express 4.x middleware which sanitizes user-supplied data to prevent MongoDB Operator Injection
+app.use(mongoSanitize());
 
 // Method that clean inputs from POST and GET and URL parameters
 // to counter xxs attacks

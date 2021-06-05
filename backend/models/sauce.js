@@ -14,5 +14,5 @@ const sauceSchema = mongoose.Schema({
     usersDisliked: { type: [String], required: true },
 });
 
-// links to controllers/sauce.js
+// links to controllers/sauces.js
 module.exports = mongoose.model('Sauce', sauceSchema);
