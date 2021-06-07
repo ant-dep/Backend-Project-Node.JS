@@ -15,8 +15,8 @@ Installation:
 
 - Frontend : utiliser :
 
-NodeJS en version 12.14 ou 14.0 (utiliser nvm par exemple)
-Angular CLI en version 7.0.2. (A desintaller et réinstaller avec npm i @angular/cli@7.0.2)
+NodeJS en version 12.14 ou 14.0 (utiliser nvm par exemple -> nvm install 12.14.0 -> nvm use 12.14.0)
+Angular CLI en version 7.0.2. (A desintaller avec npm uninstall -g angular-cli et réinstaller avec npm i @angular/cli@7.0.2)
 node-sass : attention à prendre la version correspondante à NodeJS. Pour Node 14.0 par exemple, installer node-sass en version 4.14+.
 (npm uninstall node-sass puis npm install node-sass@4.14.1)
 
