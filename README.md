@@ -22,7 +22,6 @@ node-sass : attention à prendre la version correspondante à NodeJS. Pour Node 
 
 - Backend : lancer node server ou nodemon server après avoir installé NodeJs et les packages npm comme suit pour le backend :
 
-npm install -g @angular/cli
 npm install -g nodemon
 npm install --save express
 npm install --save body-parser
