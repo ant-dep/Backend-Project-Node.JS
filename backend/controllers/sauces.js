@@ -76,6 +76,7 @@ exports.likeSauce = (req, res, next) => {
     // So here is how it checks if it's liked or not, adapt numbers and count every likes and dislikes
     const sauceObject = req.body;
     console.log(sauceObject);
+    // If the sauce is not either liked nor disliked
     // Checking if the user likes the sauce
     if (sauceObject.like === 1) {
         Sauce.updateOne({ _id: req.params.id }, {
@@ -97,7 +98,7 @@ exports.likeSauce = (req, res, next) => {
             .then(() => res.status(200).json({ message: "un dislike en plus ! Ah bon ?" }))
             .catch((error) => res.status(400).json({ error }));
     } else {
-        // If the sauce is not either liked nor disliked
+        // If the user already liked or disliked the sauce
         // look for this specific sauce
         Sauce.findOne({ _id: req.params.id })
             .then((sauce) => {
