@@ -31,7 +31,7 @@ const helmet = require("helmet"); // import helmet security manager
 const xssClean = require("xss-clean"); // import xxs attack counter
 const mongoSanitize = require("express-mongo-sanitize");
 
-require("dotenv").config(); // NPM module that loads environment variables
+require("dotenv").config(); // plugin that loads environment variables like passwords to hide them
 
 const saucesRoutes = require("./routes/sauces"); // import of routes/sauces.js
 const userRoutes = require('./routes/user'); // import of routes/user.js
@@ -41,7 +41,8 @@ const { Session } = require("inspector"); // inpector npm
 const nocache = require("nocache"); // disable cache
 
 // connection to MongoDB through mongoose and personal id and passwords
-mongoose.connect('mongodb+srv://SoPekocko:zHaJnuixqtzYaKYZ@cluster0.ifwqf.mongodb.net/SoPekocko?retryWrites=true&w=majority', {
+mongoose
+    .connect(process.env.DB_MONGOOSE, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -66,7 +67,7 @@ app.use((req, res, next) => {
 app.use(
     cookieSession({
         name: "session",
-        secret: "s3CuR3T3", // basic password exapmle
+        secret: process.env.DB_COOKIE, // basic password exapmle
         cookie: {
             secure: true,
             httpOnly: true,
