@@ -22,6 +22,8 @@
 // npm install validator (middleware/email.js)
 // npm install i maskdata (controllers/user.js)
 
+require('dotenv').config(); // plugin that loads environment variables like passwords to hide them
+
 const express = require('express'); // framework of Node.js
 const bodyParser = require('body-parser'); // object translator
 const mongoose = require('mongoose'); // framework of MongoDB
@@ -30,8 +32,6 @@ const cookieSession = require("cookie-session"); // import cookie-session handle
 const helmet = require("helmet"); // import helmet security manager
 const xssClean = require("xss-clean"); // import xxs attack counter
 const mongoSanitize = require("express-mongo-sanitize");
-
-require("dotenv").config(); // plugin that loads environment variables like passwords to hide them
 
 const saucesRoutes = require("./routes/sauces"); // import of routes/sauces.js
 const userRoutes = require('./routes/user'); // import of routes/user.js

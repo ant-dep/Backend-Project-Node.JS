@@ -8,7 +8,7 @@ Ici j'ai donc réalisé le back end de l'application en Api rest avec Nodejs et 
 
 Les règles de sécurité Owasp ont été également mis en place afin de sécuriser l'application et la navigation de l'utilisateur.
 
-Ce projet a été réalisé dans le cadre du projet 6 d'openclassroom.
+Ce projet a été réalisé dans le cadre du projet 6 d'openclassrooms.
 
 
 Installation:
@@ -31,7 +31,7 @@ npm install --save mongoose-unique-validator
 npm install --save bcrypt
 npm install --save jsonwebtoken
 npm install --save multer
-npm install --save dotenv
+npm install --save dotenv // 
 npm install --save helmet
 npm install --save cookie-session
 npm install --save xss-clean
